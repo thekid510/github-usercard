@@ -3,8 +3,17 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
-/*
+import axios from 'axios';
+axios
+.get("https://api.github.com/users/thekid510")
+.then((futureData) => {
+console.log("1 here is the future data: ",futureData);
+})
+.catch((err) =>{
+console.log(err);
+});
+// ### Part 1: Requesting Data from the GitHub API
+/*x
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
