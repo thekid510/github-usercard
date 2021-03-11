@@ -6,8 +6,9 @@
 import axios from 'axios';
 axios
 .get("https://api.github.com/users/thekid510")
-.then((futureData) => {
-console.log("1 here is the future data: ",futureData);
+.then((res) => {
+cardMaker(res.data);
+console.log(res.data);
 })
 .catch((err) =>{
 console.log(err);
@@ -37,27 +38,53 @@ console.log(err);
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [ "tetondan","dustinmyers", "tsml", "luishrd", "bigknell"];
 
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
+const entryPoint = document.querySelector(".cards");
+function cardMaker({obj}){
+  const gitCard = document.createElement("div");
+  const image = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const name = document.createElement("h3");
+  const user = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const link = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement('p');
 
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
+  name.textContent = `${}`;
+  image.src = 
+  gitCard.classList.add("card");
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  user.classList.add("username");
+  user.textContent = `${users user name }`;
+  location.textContent = `Location: ${location}`
+  profile.textContent = `Profile:`
+  followers.textContent = ; `Followers: ${followers}`
+  following.textContent = ; `Follow: ${followers}`
+
+}
+  // STEP 3: Create a function that accepts a single object as its only argument.
+  //   Using DOM methods and properties, create and return the following markup:
+
+  //   <div class="card">
+  //     <img src={image url of user} />
+  //     <div class="card-info">
+  //       <h3 class="name">{users name}</h3>
+  //       <p class="username">{users user name}</p>
+  //       <p>Location: {users location}</p>
+  //       <p>Profile:
+  //         <a href={address to users github page}>{address to users github page}</a>
+  //       </p>
+  //       <p>Followers: {users followers count}</p>
+  //       <p>Following: {users following count}</p>
+  //       <p>Bio: {users bio}</p>
+  //     </div>
+  //   </div>
+
 
 /*
   List of LS Instructors Github username's:
