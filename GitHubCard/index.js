@@ -5,18 +5,28 @@
 */
 const followersArray = ['tetondan','dustinmyers', 'tsml', 'luishrd', 'bigknell'];
 import axios from 'axios';
+followersArray.forEach(person => {
+  axios.get(`https://api.github.com/users/${person}`)
+  .then((res) =>{
+    const newCards = cardMaker(res.data)
+    entryPoint.appendChild(cardMaker(res.data))
+    
+   })
+.catch((err) => {
+  console.log(err)
+})
+})
 
 axios
 .get("https://api.github.com/users/thekid510")
 .then((res) => {
-const entryPoint = document.querySelector(".cards");
 entryPoint.append(cardMaker(res.data))
 cardMaker(res.data);
 })
 .catch((err) =>{
 console.log(err);
 });
-
+const entryPoint = document.querySelector(".cards");``
 
 
 
@@ -72,7 +82,7 @@ function cardMaker(obj){
   gitfollowing.textContent = `Following: ${obj.following}`;
   gitbio.textContent = `Bio: ${obj.bio}`;
   link.setAttribute(`href`, obj.url);
-  link.textContent = 'url'
+  link.textContent = obj.url;
 
   gitCard.append(image);
   gitCard.appendChild(cardInfo);
@@ -86,19 +96,7 @@ function cardMaker(obj){
 
   return gitCard;
 }
-axios
-.get(`https://api.github.com/users/`)
-.then(resp =>{
-  const newCards = resp.data.gitCard;
- images.forEach(image => {
-   const dogCard  = cardMaker(obj);
-   
-   entryPoint.append(gitCard);
- });
-})
-.catch((err) => {
-  debugger;
-})
+
   // STEP 3: Create a function that accepts a single object as its only argument.
   //   Using DOM methods and properties, create and return the following markup:
 
