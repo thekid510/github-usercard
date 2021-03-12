@@ -3,8 +3,23 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios';
+axios
+.get("https://api.github.com/users/thekid510")
+.then((res) => {
+const entryPoint = document.querySelector(".cards");
+entryPoint.append(cardMaker(res.data))
+cardMaker(res.data);
+})
+.catch((err) =>{
+console.log(err);
+});
 
-/*
+
+const followersArray = ['tetondan','dustinmyers', 'tsml', 'luishrd', 'bigknell'];
+
+// ### Part 1: Requesting Data from the GitHub API
+/*x
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
@@ -28,27 +43,61 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
 
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
+function cardMaker(obj){
+  const gitCard = document.createElement("div");
+  const image = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const gitname = document.createElement("h3");
+  const gituser = document.createElement("p");
+  const gitlocation = document.createElement("p");
+  const gitprofile = document.createElement("p");
+  const link = document.createElement("a");
+  const gitfollowers = document.createElement("p");
+  const gitfollowing = document.createElement("p");
+  const gitbio = document.createElement('p');
+
+  gitname.textContent = `${obj.name}`;
+  image.src= obj.avatar_url;
+  gitCard.classList.add("card");
+  cardInfo.classList.add("card-info");
+  gitname.classList.add("name");
+  gituser.classList.add("username");
+
+  gituser.textContent = obj.name;
+  gitlocation.textContent = `Location: ${obj.location}`;
+  gitprofile.textContent = `Profile:`
+  gitfollowers.textContent = `Followers: ${obj.followers}`;
+  gitfollowing.textContent = `Following: ${obj.following}`;
+  gitbio.textContent = `Bio: ${obj.bio}`;
+  link.setAttribute(`href`, obj.url);
+  link.textContent = 'url'
+
+  gitCard.append(image,cardInfo);
+  cardInfo.append(gitname, gituser, gitprofile, gitfollowers, gitfollowing, gitbio);
+  gitprofile.append(link);
+
+  return gitCard;
+}
+  // STEP 3: Create a function that accepts a single object as its only argument.
+  //   Using DOM methods and properties, create and return the following markup:
+
+  //   <div class="card">
+  //     <img src={image url of user} />
+  //     <div class="card-info">
+  //       <h3 class="name">{users name}</h3>
+  //       <p class="username">{users user name}</p>
+  //       <p>Location: {users location}</p>
+  //       <p>Profile:
+  //         <a href={address to users github page}>{address to users github page}</a>
+  //       </p>
+  //       <p>Followers: {users followers count}</p>
+  //       <p>Following: {users following count}</p>
+  //       <p>Bio: {users bio}</p>
+  //     </div>
+  //   </div>
+
 
 /*
   List of LS Instructors Github username's:
