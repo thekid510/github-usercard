@@ -3,7 +3,9 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const followersArray = ['tetondan','dustinmyers', 'tsml', 'luishrd', 'bigknell'];
 import axios from 'axios';
+
 axios
 .get("https://api.github.com/users/thekid510")
 .then((res) => {
@@ -16,7 +18,7 @@ console.log(err);
 });
 
 
-const followersArray = ['tetondan','dustinmyers', 'tsml', 'luishrd', 'bigknell'];
+
 
 // ### Part 1: Requesting Data from the GitHub API
 /*x
@@ -43,8 +45,6 @@ const followersArray = ['tetondan','dustinmyers', 'tsml', 'luishrd', 'bigknell']
     user, and adding that card to the DOM.
 */
 
-
-
 function cardMaker(obj){
   const gitCard = document.createElement("div");
   const image = document.createElement("img");
@@ -65,7 +65,7 @@ function cardMaker(obj){
   gitname.classList.add("name");
   gituser.classList.add("username");
 
-  gituser.textContent = obj.name;
+  gituser.textContent = obj.login;
   gitlocation.textContent = `Location: ${obj.location}`;
   gitprofile.textContent = `Profile:`
   gitfollowers.textContent = `Followers: ${obj.followers}`;
@@ -74,12 +74,31 @@ function cardMaker(obj){
   link.setAttribute(`href`, obj.url);
   link.textContent = 'url'
 
-  gitCard.append(image,cardInfo);
-  cardInfo.append(gitname, gituser, gitprofile, gitfollowers, gitfollowing, gitbio);
-  gitprofile.append(link);
+  gitCard.append(image);
+  gitCard.appendChild(cardInfo);
+  cardInfo.appendChild(gitname);
+  cardInfo.appendChild(gituser);
+  cardInfo.appendChild(gitlocation);
+  cardInfo.appendChild(gitprofile);
+  cardInfo.appendChild(gitfollowers);
+  cardInfo.appendChild(gitfollowing);
+  gitprofile.appendChild(link);
 
   return gitCard;
 }
+axios
+.get(`https://api.github.com/users/`)
+.then(resp =>{
+  const newCards = resp.data.gitCard;
+ images.forEach(image => {
+   const dogCard  = cardMaker(obj);
+   
+   entryPoint.append(gitCard);
+ });
+})
+.catch((err) => {
+  debugger;
+})
   // STEP 3: Create a function that accepts a single object as its only argument.
   //   Using DOM methods and properties, create and return the following markup:
 
