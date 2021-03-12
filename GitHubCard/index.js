@@ -7,12 +7,17 @@ import axios from 'axios';
 axios
 .get("https://api.github.com/users/thekid510")
 .then((res) => {
+const entryPoint = document.querySelector(".cards");
+entryPoint.append(cardMaker(res.data))
 cardMaker(res.data);
-console.log(res.data);
 })
 .catch((err) =>{
 console.log(err);
 });
+
+
+const followersArray = ['tetondan','dustinmyers', 'tsml', 'luishrd', 'bigknell'];
+
 // ### Part 1: Requesting Data from the GitHub API
 /*x
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -38,34 +43,42 @@ console.log(err);
     user, and adding that card to the DOM.
 */
 
-const followersArray = [ "tetondan","dustinmyers", "tsml", "luishrd", "bigknell"];
 
-const entryPoint = document.querySelector(".cards");
-function cardMaker({obj}){
+
+function cardMaker(obj){
   const gitCard = document.createElement("div");
   const image = document.createElement("img");
   const cardInfo = document.createElement("div");
-  const name = document.createElement("h3");
-  const user = document.createElement("p");
-  const location = document.createElement("p");
-  const profile = document.createElement("p");
+  const gitname = document.createElement("h3");
+  const gituser = document.createElement("p");
+  const gitlocation = document.createElement("p");
+  const gitprofile = document.createElement("p");
   const link = document.createElement("a");
-  const followers = document.createElement("p");
-  const following = document.createElement("p");
-  const bio = document.createElement('p');
+  const gitfollowers = document.createElement("p");
+  const gitfollowing = document.createElement("p");
+  const gitbio = document.createElement('p');
 
-  name.textContent = `${}`;
-  image.src = 
+  gitname.textContent = `${obj.name}`;
+  image.src= obj.avatar_url;
   gitCard.classList.add("card");
   cardInfo.classList.add("card-info");
-  name.classList.add("name");
-  user.classList.add("username");
-  user.textContent = `${users user name }`;
-  location.textContent = `Location: ${location}`
-  profile.textContent = `Profile:`
-  followers.textContent = ; `Followers: ${followers}`
-  following.textContent = ; `Follow: ${followers}`
+  gitname.classList.add("name");
+  gituser.classList.add("username");
 
+  gituser.textContent = obj.name;
+  gitlocation.textContent = `Location: ${obj.location}`;
+  gitprofile.textContent = `Profile:`
+  gitfollowers.textContent = `Followers: ${obj.followers}`;
+  gitfollowing.textContent = `Following: ${obj.following}`;
+  gitbio.textContent = `Bio: ${obj.bio}`;
+  link.setAttribute(`href`, obj.url);
+  link.textContent = 'url'
+
+  gitCard.append(image,cardInfo);
+  cardInfo.append(gitname, gituser, gitprofile, gitfollowers, gitfollowing, gitbio);
+  gitprofile.append(link);
+
+  return gitCard;
 }
   // STEP 3: Create a function that accepts a single object as its only argument.
   //   Using DOM methods and properties, create and return the following markup:
